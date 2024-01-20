@@ -1,5 +1,6 @@
 package com.ghanshyam.audiopulse.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -8,6 +9,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.ghanshyam.audiopulse.Models.SongModel
 import com.ghanshyam.audiopulse.MyExoplayer
+import com.ghanshyam.audiopulse.PlayerActivity
 import com.ghanshyam.audiopulse.SongsListActivity
 import com.ghanshyam.audiopulse.databinding.ActivitySongsListBinding
 import com.ghanshyam.audiopulse.databinding.SongItemBinding
@@ -31,6 +33,7 @@ class SongsListAdapter(private val songIdList: List<String>) :
                             .into(binding.songCover)
                         binding.root.setOnClickListener {
                             MyExoplayer.startPlaying(binding.root.context, song)
+                            it.context.startActivity(Intent(it.context, PlayerActivity::class.java))
                         }
 
                     }
