@@ -74,17 +74,19 @@
                 android:layout_height="30dp" />
 
             <RelativeLayout
+                android:visibility="gone"
+                android:id="@+id/section1Layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/trendingTextView"
+                    android:id="@+id/section1TextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-medium"
-                    android:text="Trending"
                     android:textColor="@color/white"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    tools:text="Trending" />
 
                 <ImageView
                     android:layout_width="30dp"
@@ -93,13 +95,99 @@
                     android:src="@drawable/round_play_arrow_24" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/trending_recView"
+                    android:id="@+id/section1recView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/trendingTextView" />
+                    android:layout_below="@id/section1TextView" />
 
             </RelativeLayout>
 
+            <RelativeLayout
+                android:id="@+id/section2Layout"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/section2TextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    tools:text="Trending" />
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentEnd="true"
+                    android:src="@drawable/round_play_arrow_24" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/section2RecView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/section2TextView" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/section3Layout"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/section3TextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    tools:text="Trending" />
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentEnd="true"
+                    android:src="@drawable/round_play_arrow_24" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/section3RecView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/section3TextView" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/section4Layout"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/section4TextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    tools:text="Trending" />
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentEnd="true"
+                    android:src="@drawable/round_play_arrow_24" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/section4RecView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/section4TextView" />
+
+            </RelativeLayout>
 
         </LinearLayout>
 

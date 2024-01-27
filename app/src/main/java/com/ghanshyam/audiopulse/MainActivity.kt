@@ -1,8 +1,13 @@
 package com.ghanshyam.audiopulse
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.widget.RelativeLayout
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.ghanshyam.audiopulse.Models.CategoryModel
 import com.ghanshyam.audiopulse.adapter.CategoryAdapter
 import com.ghanshyam.audiopulse.adapter.SectionSongListAdapter
@@ -19,7 +24,18 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         getCategories()
-        setUpSection()
+        setUpSection(
+            "section_1",
+            binding.section1Layout,
+            binding.section1TextView,
+            binding.section1recView
+        )
+        setUpSection(
+            "section_2",
+            binding.section2Layout,
+            binding.section2TextView,
+            binding.section2RecView
+        )
 
     }
 
@@ -41,15 +57,30 @@ class MainActivity : AppCompatActivity() {
 
 
     //Sections
-    fun setUpSection() {
+    fun setUpSection(
+        id: String,
+        layout: RelativeLayout,
+        title: TextView,
+        recView: RecyclerView
+    ) {
         FirebaseFirestore.getInstance().collection("sections")
-            .document("section_1")
+            .document(id)
             .get().addOnSuccessListener {
                 val section = it.toObject(CategoryModel::class.java)
                 section?.apply {
-                    binding.trendingTextView.text = name
-                    binding.trendingRecView.layoutManager = LinearLayoutManager(this@MainActivity)
-                    binding.trendingRecView.adapter = SectionSongListAdapter(songs)
+//                    binding.section1Layout.visibility = View.VISIBLE
+                    layout.visibility = View.VISIBLE
+                    title.text = name
+                    recView.layoutManager = LinearLayoutManager(
+                        this@MainActivity,
+                        LinearLayoutManager.HORIZONTAL,
+                        false
+                    )
+                    recView.adapter = SectionSongListAdapter(songs)
+                    layout.setOnClickListener {
+                        SongsListActivity.category = section
+                        startActivity(Intent(this@MainActivity, SongsListActivity::class.java))
+                    }
                 }
             }
     }

@@ -24,7 +24,7 @@
             android:id="@+id/songTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Song Name"
+            tools:text="Song Name"
             android:textColor="@color/white"
             android:textSize="22sp"
             android:textStyle="bold" />
@@ -33,7 +33,7 @@
             android:id="@+id/songSubtitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Artist"
+            tools:text="Artist"
             android:textSize="18sp" />
     </LinearLayout>
 
