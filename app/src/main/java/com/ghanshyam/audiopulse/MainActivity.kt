@@ -1,18 +1,23 @@
 package com.ghanshyam.audiopulse
 
+
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import com.ghanshyam.audiopulse.Models.CategoryModel
 import com.ghanshyam.audiopulse.adapter.CategoryAdapter
 import com.ghanshyam.audiopulse.adapter.SectionSongListAdapter
 import com.ghanshyam.audiopulse.databinding.ActivityMainBinding
 import com.google.firebase.firestore.FirebaseFirestore
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -37,6 +42,29 @@ class MainActivity : AppCompatActivity() {
             binding.section2RecView
         )
 
+
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        showPlayerView()
+    }
+
+    fun showPlayerView() {
+        binding.playerView.setOnClickListener {
+            startActivity(Intent(this, PlayerActivity::class.java))
+        }
+        MyExoplayer.getCurrentSong()?.let {
+            binding.playerView.visibility = View.VISIBLE
+            binding.songTitle.text = it.title
+            binding.songSubtitle.text = it.subtitle
+            Glide.with(binding.songCoverImg).load(it.coverUrl)
+                .apply(RequestOptions().transform(RoundedCorners(20)))
+                .into(binding.songCoverImg)
+        } ?: run {
+            binding.playerView.visibility = View.GONE
+        }
     }
 
 
