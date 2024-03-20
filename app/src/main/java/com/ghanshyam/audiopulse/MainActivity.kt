@@ -13,10 +13,13 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.ghanshyam.audiopulse.Models.CategoryModel
+import com.ghanshyam.audiopulse.Models.SongModel
 import com.ghanshyam.audiopulse.adapter.CategoryAdapter
 import com.ghanshyam.audiopulse.adapter.SectionSongListAdapter
 import com.ghanshyam.audiopulse.databinding.ActivityMainBinding
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
+import com.google.firebase.firestore.toObjects
 
 
 class MainActivity : AppCompatActivity() {
@@ -41,7 +44,12 @@ class MainActivity : AppCompatActivity() {
             binding.section2TextView,
             binding.section2RecView
         )
-
+        setUpMostlyPlayed(
+            "mostly_played",
+            binding.mostlyPlayed,
+            binding.mostlyPlayedTitle,
+            binding.mostlyPlayedRv
+        )
 
 
     }
@@ -110,6 +118,51 @@ class MainActivity : AppCompatActivity() {
                         startActivity(Intent(this@MainActivity, SongsListActivity::class.java))
                     }
                 }
+            }
+    }
+
+    fun setUpMostlyPlayed(
+        id: String,
+        layout: RelativeLayout,
+        title: TextView,
+        recView: RecyclerView
+    ) {
+        FirebaseFirestore.getInstance().collection("sections")
+            .document(id)
+            .get().addOnSuccessListener {
+
+                FirebaseFirestore.getInstance().collection("songs")
+                    .orderBy("count", Query.Direction.DESCENDING)
+                    .limit(10)
+                    .get().addOnSuccessListener { songListSnapshot ->
+                        val songModelList = songListSnapshot.toObjects<SongModel>()
+                        val songsIdList = songModelList.map {
+                            it.id
+                        }.toList()
+                        val section = it.toObject(CategoryModel::class.java)
+                        section?.apply {
+//                    binding.section1Layout.visibility = View.VISIBLE
+                            layout.visibility = View.VISIBLE
+                            title.text = name
+                            recView.layoutManager = LinearLayoutManager(
+                                this@MainActivity,
+                                LinearLayoutManager.HORIZONTAL,
+                                false
+                            )
+                            recView.adapter = SectionSongListAdapter(songsIdList)
+                            layout.setOnClickListener {
+                                SongsListActivity.category = section
+                                startActivity(
+                                    Intent(
+                                        this@MainActivity,
+                                        SongsListActivity::class.java
+                                    )
+                                )
+                            }
+                        }
+                    }
+
+
             }
     }
 }
