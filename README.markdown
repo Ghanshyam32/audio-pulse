@@ -29,7 +29,7 @@ _Replace the placeholder URLs above with the actual URLs of your screenshots aft
 
 1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/yourusername/audiopulse.git
+   git clone https://github.com/ghanshyam/audiopulse.git
    ```
 2. **Open in Android Studio**:
    - Import the project into Android Studio.
